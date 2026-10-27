@@ -1,1 +1,81 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#d7192d">
+  <meta name="description" content="Sua Pokédex Pokémon com busca, gerações, favoritos e capturados.">
+  <title>Minha Pokédex</title>
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
+  <link rel="apple-touch-icon" href="./icon-192.png">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <img src="./icon-192.png" alt="" class="brand-icon">
+      <div><strong>Pokédex</strong><small>Seu guia Pokémon</small></div>
+    </div>
+    <button id="installBtn" class="install-btn" hidden>Instalar</button>
+  </header>
 
+  <main>
+    <section class="intro">
+      <p class="eyebrow">TREINADOR, PREPARE-SE</p>
+      <h1>Conheça todos os Pokémon.</h1>
+      <p class="muted">Pesquise Pokémon, explore gerações e marque suas descobertas.</p>
+    </section>
+
+    <section class="controls" aria-label="Busca e filtros">
+      <label class="search-wrap">
+        <span aria-hidden="true">⌕</span>
+        <input id="searchInput" type="search" placeholder="Buscar por nome ou número..." autocomplete="off">
+      </label>
+      <div class="filter-row" id="generationFilters">
+        <button class="filter active" data-gen="0">Todas</button>
+        <button class="filter" data-gen="1">Kanto</button>
+        <button class="filter" data-gen="2">Johto</button>
+        <button class="filter" data-gen="3">Hoenn</button>
+        <button class="filter" data-gen="4">Sinnoh</button>
+        <button class="filter" data-gen="5">Unova</button>
+        <button class="filter" data-gen="6">Kalos</button>
+        <button class="filter" data-gen="7">Alola</button>
+        <button class="filter" data-gen="8">Galar</button>
+        <button class="filter" data-gen="9">Paldea</button>
+      </div>
+      <div class="view-row">
+        <span id="resultCount">Carregando Pokédex…</span>
+        <div class="view-actions">
+          <button class="small-filter active" data-view="all">Todos</button>
+          <button class="small-filter" data-view="favorites">★ Favoritos</button>
+          <button class="small-filter" data-view="caught">✓ Capturados</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="status" class="status">Conectando à PokéAPI para carregar os Pokémon…</section>
+    <section id="pokemonGrid" class="pokemon-grid" aria-live="polite"></section>
+    <button id="loadMore" class="load-more" hidden>Carregar mais</button>
+  </main>
+
+  <nav class="bottom-nav">
+    <a class="nav-active" href="#" aria-current="page"><span>◉</span> Pokédex</a>
+    <button id="navFavorites"><span>☆</span> Favoritos</button>
+    <button id="navCaught"><span>✓</span> Capturados</button>
+  </nav>
+
+  <dialog id="detailDialog" class="detail-dialog">
+    <button id="closeDialog" class="close-dialog" aria-label="Fechar">×</button>
+    <div id="detailContent"></div>
+  </dialog>
+
+  <footer><p>Dados e imagens fornecidos pela PokéAPI. Feito para fãs Pokémon.</p></footer>
+  <script src="./script.js"></script>
+  <script>
+    if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => {}));
+    }
+  </script>
+</body>
+</html>
